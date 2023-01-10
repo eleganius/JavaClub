@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -23,6 +24,12 @@ public class MemberController {
 		model.addAttribute("statusMessage", getStatusMessage(status));
 		model.addAttribute("members", service.getMemberList());
 		return "members/list";
+	}
+
+	@GetMapping("/delete/{id}")
+	public String delete(@PathVariable Integer id, Model model) throws Exception {
+		service.deleteMember(id);
+		return "redirect:/members?status=delete";
 	}
 
 	//statusの値に応じたメッセージを作成する
