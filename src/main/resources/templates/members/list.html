@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>会員一覧</title>
+<link rel="stylesheet" href="../css/bootstrap.min.css">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<div class="container">
+<h1 class="mt-4">会員一覧</h1>
+
+<!-- 操作に応じたメッセージを表示:start -->
+<div class="alert alert-success mt-4">
+	会員を追加しました等、操作に応じたメッセージ
+</div>
+<!-- 操作に応じたメッセージを表示:end -->
+
+<p>
+	<a class="mt-4 btn btn-primary" href="add.html">会員の追加</a>
+	<a class="mt-4 ms-4 btn btn-secondary" href="../home.html">ログアウト</a>
+</p>
+<table class="table">
+	<tr>
+		<th>ID</th>
+		<th>氏名</th>
+		<th>年齢</th>
+		<th>住所</th>
+		<th>会員種別</th>
+		<th>登録日</th>
+		<th colspan="2">操作</th>
+	</tr>
+	<tr>
+		<td>1</td>
+		<td>山田太郎</td>
+		<td>25</td>
+		<td>東京都</td>
+		<td>通常会員</td>
+		<td>2020年05月05日</td>
+		<td><a class="btn btn-primary" href="edit.html">編集</a></td>
+		<td><a class="btn btn-danger delete" href="" data-bs-toggle="modal" data-bs-target="#confirm-modal" data-name="山田太郎">削除</a></td>
+	</tr>
+	<tr>
+		<td>2</td>
+		<td>田中花子</td>
+		<td>27</td>
+		<td>埼玉県</td>
+		<td>プレミアム会員</td>
+		<td>2020年06月10日</td>
+		<td><a class="btn btn-primary" href="edit.html">編集</a></td>
+		<td><a class="btn btn-danger delete" href="" data-bs-toggle="modal" data-bs-target="#confirm-modal" data-name="田中花子">削除</a></td>
+	</tr>
+	<tr>
+		<td>3</td>
+		<td>鈴木次郎</td>
+		<td>24</td>
+		<td>千葉県</td>
+		<td>通常会員</td>
+		<td>2020年06月14日</td>
+		<td><a class="btn btn-primary" href="edit.html">編集</a></td>
+		<td><a class="btn btn-danger delete" href="" data-bs-toggle="modal" data-bs-target="#confirm-modal" data-name="鈴木次郎">削除</a></td>
+	</tr>
+</table>
+</div>
+
+<!-- 2ページ以上の場合、ページネーションを表示:start -->
+<div class="container">
+	<ul class="pagination">
+		<!-- 前のページへ -->
+		<li class="page-item disabled"><a class="page-link" href="">&laquo;</a></li>
+
+		<!-- ページ番号 -->
+		<li class="page-item active"><a class="page-link" href="">1</a></li>
+		<li class="page-item"><a class="page-link" href="">2</a></li>
+		<li class="page-item"><a class="page-link" href="">3</a></li>
+
+		<!-- 次のページへ -->
+		<li class="page-item"><a class="page-link" href="">&raquo;</a></li>
+	</ul>
+</div>
+<!-- 2ページ以上の場合、ページネーションを表示:end -->
+
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="confirm-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirm-modal">会員情報の削除</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        「<span id="delete-name"></span>」を削除します。よろしいですか？
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-danger" id="delete-yes">はい</a>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">いいえ</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../js/jquery-3.6.1.min.js"></script>
+<script src="../js/bootstrap.bundle.min.js"></script>
+<script>
+$(".delete").click(function(){
+	$("#delete-name").text($(this).attr("data-name"));
+	$("#delete-yes").attr("href", $(this).attr("href"));
+});
+</script>
+</body>
+</html>

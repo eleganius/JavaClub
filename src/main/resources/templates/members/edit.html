@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>会員情報の変更</title>
+<link rel="stylesheet" href="../css/bootstrap.min.css">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<div class="container">
+<h1 class="my-4">会員情報の変更</h1>
+<form action="" method="post">
+	<span class="error">氏名に関するエラーメッセージ</span>
+	<p class="mt-2">氏名：<input type="text" name="name"></p>
+
+	<span class="error">年齢に関するエラーメッセージ</span>
+	<p class="mt-2">年齢：<input type="text" name="age"></p>
+
+	<span class="error">住所に関するエラーメッセージ</span>
+	<p class="mt-2">住所：<input type="text" name="address"></p>
+
+	<p class="mt-2">会員種別：
+		<select name="typeId">
+			<option value="1">通常会員</option>
+			<option value="2">プレミアム会員</option>
+		</select>
+	</p>
+
+	<input class="btn btn-primary" type="submit" value="保存">
+</form>
+<p class="mt-4"><a href="list.html">一覧に戻る</a></p>
+</div>
+</body>
+</html>
