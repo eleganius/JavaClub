@@ -18,7 +18,7 @@
 		SELECT
 		members.id, members.name, members.age,
 		members.address, members.created,
-		member_types.name AS typeName
+		members.type_id AS typeId
 		FROM members
 		WHERE members.id = #{id}
 	</select>
