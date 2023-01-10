@@ -6,7 +6,7 @@
 	<select id="selectAll" resultType="com.example.appdomain.Member">
 		SELECT
 		members.id, members.name, members.age,
-		member.address, member.created,
+		members.address, members.created,
 		member_types.name AS typeName
 		FROM members
 		JOIN member_types
@@ -15,7 +15,28 @@
 
 	<select id="selectById" parameterType="int"
 		resultType="com.example.app.domain.Member">
-
+		SELECT
+		members.id, members.name, members.age,
+		members.address, members.created,
+		member_types.name AS typeName
+		FROM members
+		WHERE members.id = #{id}
 	</select>
+	
+	<insert id="insert" parameterType="com.example.app.domain.Member">
+		INSERT INTO members (name, age, address, type_id, created)
+		VALUES (#{name}, #{age}, #{address}, #{typeId}, NOW())
+	</insert>
+	
+	<update id="update" parameterType="com.example.app.domain.Member">
+		UPDATE members
+		SET name = #{name}, age = #{age},
+		address = #{address}, type_id = #{typeId}
+		WHERE id = #{id}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM members WHERE id = ${id}
+	</delete>
 
 </mapper>
