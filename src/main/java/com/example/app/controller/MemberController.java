@@ -1,13 +1,21 @@
 package com.example.app.controller;
 
+import java.util.List;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.app.domain.Member;
 import com.example.app.service.MemberService;
 
 @Controller
@@ -30,6 +38,60 @@ public class MemberController {
 	public String delete(@PathVariable Integer id, Model model) throws Exception {
 		service.deleteMember(id);
 		return "redirect:/members?status=delete";
+	}
+
+	@GetMapping("/add")
+	public String addGet(Model model) throws Exception {
+		model.addAttribute("member", new Member());
+		model.addAttribute("types", service.getTypeList());
+		return "members/add";
+	}
+
+	@PostMapping("/add")
+	public String addPost(
+			@Valid Member member,
+			Errors errors,
+			Model model) throws Exception {
+		if (errors.hasErrors()) {
+			// エラー内容の確認
+			List<ObjectError> objList = errors.getAllErrors();
+			for (ObjectError obj : objList) {
+				System.out.println(obj.toString());
+				model.addAttribute("types", service.getTypeList());
+				return "members/add";
+			}
+		}
+
+		service.addMember(member);
+		return "redirect:/members?status=add";
+	}
+
+	@GetMapping("/edit/{id}")
+	public String editGet(@PathVariable Integer id, Model model) throws Exception {
+		model.addAttribute("member", service.getMemberById(id));
+		model.addAttribute("types", service.getTypeList());
+		return "members/edit";
+	}
+
+	@PostMapping("/edit/{id}")
+	public String editpost(
+			@PathVariable Integer id,
+			@Valid Member member,
+			Errors errors,
+			Model model) throws Exception {
+		if (errors.hasErrors()) {
+			// エラー内容の確認
+			List<ObjectError> objList = errors.getAllErrors();
+			for (ObjectError obj : objList) {
+				System.out.println(obj.toString());
+			}
+			model.addAttribute("types", service.getTypeList());
+			return "members/edit";
+		}
+
+		member.setId(id);
+		service.editMember(member);
+		return "redirect:/members?status=edit";
 	}
 
 	//statusの値に応じたメッセージを作成する
