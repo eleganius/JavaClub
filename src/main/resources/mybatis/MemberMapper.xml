@@ -3,7 +3,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.app.dao.MemberDao">
 
-	<select id="selectAll" resultType="com.example.appdomain.Member">
+	<select id="selectAll" resultType="com.example.app.domain.Member">
 		SELECT
 		members.id, members.name, members.age,
 		members.address, members.created,
