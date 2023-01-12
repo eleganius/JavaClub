@@ -1,6 +1,7 @@
 package com.example.app.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -12,5 +13,6 @@ public class News {
 	private String author;
 	private Date postDate;
 	private NewsDetail detail;
+	private List<MemberType> targetList;
 
 }
