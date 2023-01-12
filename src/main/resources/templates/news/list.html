@@ -13,8 +13,8 @@
 		<h1 class="mt-4">お知らせ一覧</h1>
 
 		<!-- 操作に応じたメッセージを表示:start -->
-		<div class="alert alert-success mt-4">
-			お知らせを追加しました等、操作に応じたメッセージ
+		<div th:if="${statusMessage}" class="alert alert-success mt-4">
+			[[${statusMessage}]]
 		</div>
 		<!-- 操作に応じたメッセージを表示:end -->
 
