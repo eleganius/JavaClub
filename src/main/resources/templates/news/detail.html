@@ -22,11 +22,10 @@
 		<td>[[${news.author}]]</td>
 	</tr>
 	<!-- お知らせの配信対象が限定される場合:start -->
-	<tr>
+	<tr th:if="${!news.targetList.isEmpty()}">
 		<th>配信の対象</th>
 		<td>
-			<p>通常会員</p>
-			<p>プレミアム会員</p>
+			<p th:each="target : ${news.targetList}">[[${target.name}]]</p>
 		</td>
 	</tr>
 	<!-- お知らせの配信対象が限定される場合:end -->
