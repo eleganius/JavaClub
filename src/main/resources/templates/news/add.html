@@ -20,7 +20,7 @@
 
 			<p class="news_target">対象を限定する場合は☑：
 				<th:block th:each="type : ${memberTypeList}">
-					<label><input type="checkbox" name="targetIdList" th:value="${type.id}">[[${type.name}]]</label>　
+					<label><input type="checkbox" th:field="*{targetIdList}" th:value="${type.id}">[[${type.name}]]</label>　
 				</th:block>
 			</p>
 
