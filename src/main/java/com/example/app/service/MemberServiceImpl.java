@@ -51,4 +51,16 @@ public class MemberServiceImpl implements MemberService {
 		return memberTypeDao.selectAll();
 	}
 
+	@Override
+	public int getTotalPages(int numPerPage) throws Exception {
+		double totalNum = (double) memberDao.count();
+		return (int) Math.ceil(totalNum / numPerPage);
+	}
+
+	@Override
+	public List<Member> getMemeberListByPage(int page, int numPerPage) throws Exception {
+		int offset = numPerPage * (page - 1);
+		return memberDao.selectLimited(offset, numPerPage);
+	}
+
 }

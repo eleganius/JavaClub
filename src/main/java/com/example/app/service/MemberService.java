@@ -19,4 +19,8 @@ public interface MemberService {
 
 	List<MemberType> getTypeList() throws Exception;
 
+	//ページ分割機能用
+	int getTotalPages(int numPerPage) throws Exception;
+	List<Member> getMemeberListByPage(int page, int numPerPage) throws Exception;
+
 }
