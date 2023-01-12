@@ -1,6 +1,7 @@
 package com.example.app.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 
@@ -18,5 +19,8 @@ public class NewsForm {
 	//NewsDetail
 	@NotBlank
 	private String article;
+
+	//お知らせの対象リスト（会員種別のIDリスト）
+	private List<Integer> targetIdList;
 
 }

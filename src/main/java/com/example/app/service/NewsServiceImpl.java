@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.app.dao.NewsDao;
 import com.example.app.dao.NewsDetailDao;
+import com.example.app.dao.NewsTargetDao;
 import com.example.app.domain.News;
 import com.example.app.domain.NewsDetail;
 import com.example.app.domain.NewsForm;
@@ -20,6 +21,9 @@ public class NewsServiceImpl implements NewsService {
 
 	@Autowired
 	NewsDetailDao newsDetailDao;
+
+	@Autowired
+	NewsTargetDao newsTargetDao;
 
 	@Override
 	public List<News> getNewsList() throws Exception {
@@ -46,6 +50,11 @@ public class NewsServiceImpl implements NewsService {
 		detail.setNewsId(news.getId());
 		detail.setArticle(formData.getArticle());
 		newsDetailDao.insert(detail);
+
+		//news_targetsテーブルへの追加
+		for (Integer targetId : formData.getTargetIdList()) {
+			newsTargetDao.insert(news.getId(), targetId);
+		}
 	}
 
 }
