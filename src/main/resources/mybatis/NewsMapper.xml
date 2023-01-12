@@ -3,6 +3,19 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.app.dao.NewsDao">
 
+	<resultMap id="joinedResult" type="com.example.app.domain.News">
+		<id property="id" column="id" />
+		<result property="title" column="title" />
+		<result property="author" column="author" />
+		<result property="postDate" column="post_date" />
+		<association property="detail"
+			javaType="com.example.app.domain.NewsDetail">
+			<id property="newsId" column="news_id" />
+			<result property="article" column="article" />
+			<result property="photo" column="photo" />
+		</association>
+	</resultMap>
+
 	<select id="selectAll" resultType="com.example.app.domain.News">
 		SELECT
 		id, title, author, post_date
@@ -10,9 +23,14 @@
 		ORDER BY post_date DESC
 	</select>
 
-	<select id="selectById" parameterType="int"
-		resultType="com.example.app.domain.News">
-
+	<select id="selectById" parameterType="int" resultMap="joinedResult">
+		SELECT
+			news.id, news.title, news.author, news.post_date,
+			news_details.article, news_details.photo
+		FROM news
+		JOIN news_details
+		ON news.id = news_details.news_id
+		WHERE news.id = #{id}
 	</select>
 
 	<insert id="insert" parameterType="com.example.app.domain.News">

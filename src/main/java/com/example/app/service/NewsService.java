@@ -8,4 +8,6 @@ public interface NewsService {
 
 	List<News> getNewsList() throws Exception;
 
+	News getNewsById(Integer id) throws Exception;
+
 }

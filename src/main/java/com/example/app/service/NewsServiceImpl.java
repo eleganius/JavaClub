@@ -19,4 +19,9 @@ public class NewsServiceImpl implements NewsService {
 		return newsDao.selectAll();
 	}
 
+	@Override
+	public News getNewsById(Integer id) throws Exception {
+		return newsDao.selectById(id);
+	}
+
 }
