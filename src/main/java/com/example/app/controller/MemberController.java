@@ -22,15 +22,21 @@ import com.example.app.service.MemberService;
 @RequestMapping("/members")
 public class MemberController {
 
+	//1ページ当たりの表示件数
+	private static final int NUM_PER_PAGE = 5;
+
 	@Autowired
 	MemberService service;
 
 	@GetMapping
 	public String list(
+			@RequestParam(name = "page", defaultValue = "1") Integer page,
 			@RequestParam(name = "status", required = false) String status,
 			Model model) throws Exception {
+		model.addAttribute("members", service.getMemeberListByPage(page, NUM_PER_PAGE));
+		model.addAttribute("page", page);
+		model.addAttribute("totalPages", service.getTotalPages(NUM_PER_PAGE));
 		model.addAttribute("statusMessage", getStatusMessage(status));
-		model.addAttribute("members", service.getMemberList());
 		return "members/list";
 	}
 
