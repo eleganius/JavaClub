@@ -11,7 +11,7 @@
 <body>
 	<div class="container">
 		<h1 class="my-4">お知らせの追加</h1>
-		<form action="" method="post" th:object="${newsForm}">
+		<form action="" method="post" th:object="${newsForm}" enctype="multipart/form-data" id="form">
 			<span th:errors="*{title}" class="error">タイトルに関するエラーメッセージ</span>
 			<p class="mt-2">タイトル：<input type="text" th:field="*{title}"></p>
 
@@ -29,13 +29,33 @@
 				<textarea th:field="*{article}" cols="40" rows="5"></textarea>
 			</p>
 
-			<span class="error">イメージ画像に関するエラーメッセージ</span>
-			<p class="mt-2">イメージ画像：<input type="file" name="upfile"></p>
+			<span th:errors="*{upfile}" class="error">イメージ画像に関するエラーメッセージ</span>
+			<p class="mt-2">イメージ画像：<input type="file" th:field="*{upfile}"></p>
 
 			<input class="btn btn-primary" type="submit" value="保存">
 		</form>
 		<p class="mt-4"><a th:href="@{/news}">一覧に戻る</a></p>
 	</div>
+	<script th:src="@{/js/jquery-3.6.1.min.js}"></script>
+	<script>
+		const MAX_FILE_SIZE = 10 * 1024 * 1024; //10MB
+
+		$('#form').on('submit', (event) => {
+			const file = $('#upfile')[0].files[0];
+			if (file != undefined && file.size >= MAX_FILE_SIZE) {
+				//送信しない
+				event.preventDefault();
+
+				//エラーメッセージを含むspan要素を生成
+				const errorMessage = $('<span>');
+				errorMessage.addClass('error');
+				errorMessage.text('ファイルサイズが大きすぎます');
+
+				//inputタグの親要素(p要素)の前にメッセージを出力
+				$('#upfile').parent().before(errorMessage);
+			}
+		});
+	</script>
 </body>
 
 </html>

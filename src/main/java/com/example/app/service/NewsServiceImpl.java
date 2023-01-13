@@ -1,10 +1,13 @@
 package com.example.app.service;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.app.dao.NewsDao;
 import com.example.app.dao.NewsDetailDao;
@@ -49,6 +52,18 @@ public class NewsServiceImpl implements NewsService {
 		NewsDetail detail = new NewsDetail();
 		detail.setNewsId(news.getId());
 		detail.setArticle(formData.getArticle());
+
+		//画像が選択されている場合の処理
+		MultipartFile upfile = formData.getUpfile();
+		if (!upfile.isEmpty()) {
+			String photo = upfile.getOriginalFilename();
+			//news_detailsテーブルへ格納するための画像名をセット
+			detail.setPhoto(photo);
+			//画像ファイルの保存
+			Path path = Paths.get("uploads/" + photo);
+			upfile.transferTo(path);
+		}
+
 		newsDetailDao.insert(detail);
 
 		//news_targetsテーブルへの追加
